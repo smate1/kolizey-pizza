@@ -367,9 +367,10 @@ ANALYTICS = """
 """
 
 
-def page_start(title, description, depth, extra=""):
+def page_start(title, description, depth, extra="", body_class=""):
     favicon = "../" * depth + "favicon.png"
-    css = "../" * depth + "assets/style.css?v=11"
+    css = "../" * depth + "assets/style.css?v=16"
+    body_attr = f' class="{body_class}"' if body_class else ""
     return f"""<!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -385,7 +386,7 @@ def page_start(title, description, depth, extra=""):
 <link rel="stylesheet" href="{css}">
 {ANALYTICS}
 </head>
-<body>
+<body{body_attr}>
 <a class="skip" href="#{extra or 'places'}">До вмісту</a>
 """
 
@@ -410,6 +411,7 @@ def render_home(locations):
         "Піцерія-кафе «Колізей»",
         "Піцерія-кафе «Колізей» в Ужгороді та Мукачеві. Меню, години роботи, телефони і доставка.",
         0,
+        body_class="home",
     )
     html += f"""
 <header class="wrap site-header">
@@ -423,7 +425,9 @@ def render_home(locations):
       <h1>Колізей</h1>
       <p class="lede">Чотири заклади в Ужгороді та Мукачеві. Оберіть адресу — меню, телефон і доставка відкриються одразу.</p>
     </div>
-    <img class="hero-photo" src="assets/hero.jpg" alt="Піца Монако" width="840" height="840">
+    <div class="hero-mark">
+      <img class="hero-photo" src="assets/hero.jpg" alt="Піца Монако" width="840" height="840">
+    </div>
   </section>
   <p class="places-label" id="places">Заклади</p>
   <ul class="places">
